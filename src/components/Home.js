@@ -13,11 +13,11 @@ class Home extends Component {
         <Menu fixed='top' inverted>
           <Container>
             <Menu.Item as='a' header>
-              <Image
+              {/* <Image
                 size='mini'
                 src='./feather.png'
                 style={{ marginRight: '1.5em' }}
-              />
+              /> */}
               Re-Member AB
         </Menu.Item>
             <Menu.Item as='a'>Home</Menu.Item>
