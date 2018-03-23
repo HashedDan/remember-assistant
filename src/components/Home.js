@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { Container, Divider, Dropdown, Grid, Header, Image, List, Menu, Segment, Input } from 'semantic-ui-react'
 import './Home/Home.css';
 import Dashboard from './Dashboard';
 import Login from './Login';
 
 class Home extends Component {
-  
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: null,
+    };
+  }
   render() {
     return (
       <div>
@@ -41,22 +46,23 @@ class Home extends Component {
             </Dropdown>
             <Menu.Menu position='right'>
               <Menu.Item>
-                <h4>Daniel Mangum</h4>
+                <h4>{this.state.user}</h4>
               </Menu.Item>
-              <Menu.Item name='logout' />
+              <Menu.Item name={this.state.user ? 'Logout' : 'Log In'} />
             </Menu.Menu>
           </Container>
         </Menu>
         <Container text style={{ marginTop: '7em' }}>
-          <Header as='h1'>Semantic UI React Fixed Template</Header>
-          <p>This is a basic fixed menu template using fixed size containers.</p>
-          <p>A text container is used for the main container, which is useful for single column layouts.</p>
-          <h1>Welcome to Re-Member Assistant!</h1>
-          <h3>Please login below...</h3>
           <Router>
             <div>
-              <Route exact path="/" component={Dashboard} />
               <Route path="/login" component={Login} />
+              <Route exact path="/" render={() => (
+                this.state.user ? (<Dashboard />) : (
+                  <Redirect to={{
+                    pathname: "/login"
+                  }} />
+                )
+              )} />
             </div>
           </Router>
         </Container>
