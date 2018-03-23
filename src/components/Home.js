@@ -12,6 +12,12 @@ class Home extends Component {
       user: null,
     };
   }
+  changeUser = (username) => {
+    this.setState({
+      user: username
+    })
+  }
+
   render() {
     return (
       <div>
@@ -55,7 +61,9 @@ class Home extends Component {
         <Container text style={{ marginTop: '7em' }}>
           <Router>
             <div>
-              <Route path="/login" component={Login} />
+              <Route path="/login" render={() => (
+                <Login changeUser={this.changeUser.bind(this)} />
+              )}/>
               <Route exact path="/" render={() => (
                 this.state.user ? (<Dashboard />) : (
                   <Redirect to={{
