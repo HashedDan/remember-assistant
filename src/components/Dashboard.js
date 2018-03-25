@@ -6,7 +6,6 @@ class Dashboard extends Component {
     return (
       <div>
         <p>This is the dashboard.</p>
-        <Button>Click Here</Button>
       </div>
     );
   }
