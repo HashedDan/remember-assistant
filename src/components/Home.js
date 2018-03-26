@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
-import { Container, Divider, Dropdown, Grid, Header, Image, List, Menu, Segment, Input } from 'semantic-ui-react'
+import { Container, Dropdown, Menu } from 'semantic-ui-react'
 import './Home/Home.css';
 import Dashboard from './Dashboard';
 import Login from './Login';
@@ -15,7 +15,7 @@ class Home extends Component {
   changeUser = (username) => {
     this.setState({
       user: username
-    })
+    });
   }
 
   render() {
@@ -62,8 +62,10 @@ class Home extends Component {
           <Router>
             <div>
               <Route path="/login" render={() => (
-                <Login changeUser={this.changeUser.bind(this)} />
-              )}/>
+                this.state.user ? (<Dashboard />) : (
+                  <Login changeUser={this.changeUser.bind(this)} />
+                )
+              )} />
               <Route exact path="/" render={() => (
                 this.state.user ? (<Dashboard />) : (
                   <Redirect to={{
