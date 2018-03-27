@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect, browserHistory } from 'react-router-dom';
 import { Container, Dropdown, Menu } from 'semantic-ui-react'
 import './Home/Home.css';
 import Dashboard from './Dashboard';
@@ -59,7 +59,7 @@ class Home extends Component {
           </Container>
         </Menu>
         <Container text style={{ marginTop: '7em' }}>
-          <Router>
+          <Router history={browserHistory}>
             <div>
               <Route path="/login" render={() => (
                 this.state.user ? (<Dashboard />) : (
