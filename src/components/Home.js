@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Redirect, browserHistory } from 'react-router-dom';
-import { Container, Dropdown, Menu } from 'semantic-ui-react'
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { Container } from 'semantic-ui-react';
 import './Home/Home.css';
 import Dashboard from './Dashboard';
 import Login from './Login';
+import Nav from './Nav';
 
 class Home extends Component {
   constructor(props) {
@@ -21,56 +22,21 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <Menu fixed='top' inverted>
-          <Container>
-            <Menu.Item as='a' header>
-              {/* <Image
-                size='mini'
-                src='./feather.png'
-                style={{ marginRight: '1.5em' }}
-              /> */}
-              Re-Member AB
-        </Menu.Item>
-            <Menu.Item as='a'>Home</Menu.Item>
-
-            <Dropdown item simple text='Dropdown'>
-              <Dropdown.Menu>
-                <Dropdown.Item>List Item</Dropdown.Item>
-                <Dropdown.Item>List Item</Dropdown.Item>
-                <Dropdown.Divider />
-                <Dropdown.Header>Header Item</Dropdown.Header>
-                <Dropdown.Item>
-                  <i className='dropdown icon' />
-                  <span className='text'>Submenu</span>
-                  <Dropdown.Menu>
-                    <Dropdown.Item>List Item</Dropdown.Item>
-                    <Dropdown.Item>List Item</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown.Item>
-                <Dropdown.Item>List Item</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-            <Menu.Menu position='right'>
-              <Menu.Item>
-                <h4>{this.state.user}</h4>
-              </Menu.Item>
-              <Menu.Item name={this.state.user ? 'Logout' : 'Log In'} />
-            </Menu.Menu>
-          </Container>
-        </Menu>
+        <Nav user={this.state.user} changeUser={this.changeUser.bind(this)} />
         <Container text style={{ marginTop: '7em' }}>
-          <Router history={browserHistory}>
+          <Router>
             <div>
               <Route path="/login" render={() => (
                 this.state.user ? (<Dashboard />) : (
-                  <Login changeUser={this.changeUser.bind(this)} />
+                  <Login />
                 )
               )} />
               <Route exact path="/" render={() => (
                 this.state.user ? (<Dashboard />) : (
-                  <Redirect to={{
-                    pathname: "/login"
-                  }} />
+                  // <Redirect to={{
+                  //   pathname: "/login"
+                  // }} />
+                  <Login />
                 )
               )} />
             </div>
