@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Dropdown, Menu, Button } from 'semantic-ui-react';
+import { Container, Dropdown, Menu, Button, Input, Modal, Icon, Header } from 'semantic-ui-react';
 import './Nav/Nav.css';
 
 class Nav extends Component {
@@ -13,6 +13,10 @@ class Nav extends Component {
 
     login = () => {
         this.props.changeUser(this.state.username);
+    }
+
+    logout = () => {
+        // TODO
     }
 
     handleUsernameChange = (e) => {
@@ -57,13 +61,30 @@ class Nav extends Component {
                     </Dropdown>
                     <Menu.Menu position='right'>
                         {this.props.user ?
-                            <Menu.Item><h4>{this.props.user}</h4></Menu.Item>
+                            <Dropdown item simple text={this.props.user}>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item>List Item</Dropdown.Item>
+                                    <Dropdown.Item>List Item</Dropdown.Item>
+                                    <Dropdown.Item>Log Out</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
                             :
-                            <Menu.Item>
-                                <input placeholder='username' onChange={this.handleUsernameChange} />
-                                <input placeholder='password' onChange={this.handlePasswordChange} />
-                                <Button type='submit' onClick={this.login}>Log In</Button>
-                            </Menu.Item>
+                            
+                            <Modal trigger={<Menu.Item name='login' />} basic size='small'>
+                                <Header icon='archive' content='Login' />
+                                <Modal.Content>
+                                <Input placeholder='username' onChange={this.handleUsernameChange} />
+                                <Input placeholder='password' onChange={this.handlePasswordChange} />
+                                </Modal.Content>
+                                <Modal.Actions>
+                                    <Button basic color='red' inverted>
+                                        <Icon name='remove' /> Cancel
+                                    </Button>
+                                    <Button color='green' onClick={this.login} inverted>
+                                        <Icon name='checkmark' /> Login
+                                    </Button>
+                                </Modal.Actions>
+                            </Modal>
                         }
                     </Menu.Menu>
                 </Container>
